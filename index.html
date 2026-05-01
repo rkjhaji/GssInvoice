@@ -6,7 +6,7 @@
   <title>Dynamic Tax Invoice</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Basic styling for the login overlay */
+    /* Overlay Styles */
     #loginOverlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -18,25 +18,44 @@
     }
     .login-box {
       background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       text-align: center;
+      width: 300px;
     }
     .login-box input {
       display: block;
       width: 100%;
-      margin: 10px 0;
-      padding: 8px;
+      margin: 12px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
     .login-box button {
-      padding: 10px 20px;
+      width: 100%;
+      padding: 10px;
       background: #007bff;
       color: white;
       border: none;
+      border-radius: 4px;
       cursor: pointer;
+      font-weight: bold;
     }
-    /* Hide workspace until login */
+    
+    /* Logout Button Styling */
+    #logoutBtn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    /* Hide workspace by default */
     #mainWorkspace { display: none; }
   </style>
 </head>
@@ -45,15 +64,15 @@
   <!-- Login Section -->
   <div id="loginOverlay">
     <div class="login-box">
-      <h2>Invoice System Login</h2>
+      <h2 style="margin-top:0">System Login</h2>
       <input type="text" id="username" placeholder="Username">
       <input type="password" id="password" placeholder="Password">
       <button onclick="checkLogin()">Login</button>
-      <p id="errorMsg" style="color: red; display: none;">Invalid credentials!</p>
+      <p id="errorMsg" style="color: red; display: none; font-size: 14px;">Invalid credentials!</p>
     </div>
   </div>
 
-  <!-- Wrap your existing content in this ID -->
+  <!-- Workspace Section -->
   <main id="mainWorkspace" class="workspace">
     <aside class="editor" aria-label="Invoice editor">
       <div class="editor-header">
@@ -61,9 +80,14 @@
           <h1>Tax Invoice</h1>
           <p>Edit the values, add rows, then print.</p>
         </div>
-        <button id="printBtn" type="button">Print</button>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button id="printBtn" type="button">Print</button>
+          <!-- Logout Button Added Here -->
+          <button id="logoutBtn" onclick="handleLogout()">Logout</button>
+        </div>
       </div>
 
+      <!-- ... (Rest of your existing sections: Customer, Items, etc.) ... -->
       <section class="editor-section">
         <h2>Customer</h2>
         <label>Customer name <input id="customerName" type="text"></label>
@@ -84,103 +108,76 @@
     </aside>
 
     <section class="paper-wrap" aria-label="Invoice preview">
-      <article id="invoice" class="invoice-page">
-        <div class="title-box">TAX INVOICE</div>
-
-        <header class="company-block">
-          <div class="logo-box">
-            <img class="gss-logo" src="gssLogo_transparent.png" alt="GSS Logo">
-          </div>
-          <div class="company-details">
-            <h2>GURUDEV SECURITY SERVICES PVT. LTD.</h2>
-            <p>Saguna More, Danapur, Patna, Bihar</p>
-            <p>Email: gssprivatelimited@gmail.com</p>
-            <p>Mob: 9608318537, 8877378601</p>
-          </div>
-        </header>
-
-        <section class="meta-grid">
-          <div class="meta-row">
-            <div>Customer Name<span>:</span><span id="viewCustomerName"></span></div>
-            <div>GSTIN<span>:</span><span id="viewInvoiceGstin"></span></div>
-          </div>
-          <div class="meta-row">
-            <div>Customer Address<span>:</span><span id="viewCustomerAddress"></span></div>
-            <div>Bill No<span>:</span><span id="viewBillNo"></span></div>
-          </div>
-          <div class="meta-row">
-            <div>Customer GSTIN<span>:</span><span id="viewCustomerGstin"></span></div>
-            <div>Bill Date<span>:</span><span id="viewBillDate"></span></div>
-          </div>
-        </section>
-
-        <table class="invoice-table">
-          <thead>
-            <tr>
-              <th>Sr. No.</th>
-              <th>Description</th>
-              <th>Man Month</th>
-              <th>Man Day</th>
-              <th>Billing Rate</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody id="invoiceRows"></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4"></td>
-              <td>Total</td>
-              <td id="totalAmount"></td>
-            </tr>
-            <tr>
-              <td colspan="4"></td>
-              <td>CGST @9%</td>
-              <td id="cgstAmount"></td>
-            </tr>
-            <tr>
-              <td colspan="4"></td>
-              <td>SGST @9%</td>
-              <td id="sgstAmount"></td>
-            </tr>
-            <tr class="grand-row">
-              <td colspan="4"></td>
-              <td>Grand Total</td>
-              <td id="grandTotal"></td>
-            </tr>
-          </tfoot>
-        </table>
-
-        <footer class="invoice-footer">
-          <div class="amount-words">
-            <span>Rupees :-</span>
-            <span id="amountWords"></span>
-          </div>
-          <div class="signature-box">
-            <span>Accounts Officer/Auth. Signatory</span>
-          </div>
-        </footer>
-      </article>
+        <!-- (Keep your existing Article/Invoice Preview content here) -->
+        <article id="invoice" class="invoice-page">
+            <div class="title-box">TAX INVOICE</div>
+            <!-- ... (The rest of your invoice HTML) ... -->
+        </article>
     </section>
   </main>
 
   <script src="script.js"></script>
   <script>
-    // Login Logic
-    function checkLogin() {
-      const u = document.getElementById('username').value;
-      const p = document.getElementById('password').value;
-      const error = document.getElementById('errorMsg');
+    // --- AUTH LOGIC ---
 
-      if (u === "gssadmin" && p === "Gss@123") {
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('mainWorkspace').style.display = 'flex';
-      } else {
-        error.style.display = 'block';
-        // Clear fields for retry
-        document.getElementById('username').value = "";
-        document.getElementById('password').value = "";
-      }
-    }
+// 1. Check if user is already logged in on Page Load
+window.onload = function() {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  if (isLoggedIn === "true") {
+    showContent();
+  } else {
+    showLogin();
+  }
+};
+
+// 2. Login Function
+function checkLogin() {
+  const u = document.getElementById('username').value;
+  const p = document.getElementById('password').value;
+  const error = document.getElementById('errorMsg');
+
+  if (u === "admin" && p === "123") {
+    // Save state to localStorage (Persists after refresh)
+    localStorage.setItem("isLoggedIn", "true");
+    error.style.display = 'none';
+    showContent();
+  } else {
+    error.style.display = 'block';
+    // Shake effect or clear password for better UX
+    document.getElementById('password').value = "";
+  }
+}
+
+// 3. Logout Function
+function handleLogout() {
+  // Clear the saved state
+  localStorage.removeItem("isLoggedIn"); 
+  
+  // Clear the input fields so they aren't pre-filled when returning
+  document.getElementById('username').value = "";
+  document.getElementById('password').value = "";
+  
+  // Switch UI views immediately
+  showLogin();
+}
+
+// UI Toggle Helpers
+function showContent() {
+  document.getElementById('loginOverlay').style.display = 'none';
+  document.getElementById('mainWorkspace').style.display = 'flex';
+}
+
+function showLogin() {
+  document.getElementById('loginOverlay').style.display = 'flex';
+  document.getElementById('mainWorkspace').style.display = 'none';
+}
+
+// Optional: Allow pressing "Enter" key to login
+document.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter' && document.getElementById('loginOverlay').style.display !== 'none') {
+    checkLogin();
+  }
+});
   </script>
 </body>
 </html>
