@@ -1,0 +1,438 @@
+:root {
+  --ink: #080808;
+  --paper: #fff;
+  --line: 2px solid var(--ink);
+  --muted: #e8e8e8;
+  --ui: #f3f5f7;
+  --accent: #116149;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--ui);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(320px, 390px) 1fr;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.editor {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #d8dde3;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(28, 40, 60, 0.12);
+}
+
+.editor-header,
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.editor h1,
+.editor h2,
+.editor p {
+  margin: 0;
+}
+
+.editor h1 {
+  font-size: 22px;
+}
+
+.editor h2 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.editor p {
+  margin-top: 4px;
+  color: #52606d;
+  font-size: 13px;
+}
+
+.editor button {
+  min-height: 36px;
+  padding: 0 14px;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.editor-section {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e6ea;
+}
+
+.editor label {
+  display: grid;
+  gap: 5px;
+  color: #3a4652;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.editor input {
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 9px;
+  border: 1px solid #cbd3dc;
+  border-radius: 5px;
+  color: #101820;
+}
+
+.item-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  padding: 12px;
+  border: 1px solid #dfe5ea;
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.item-card .wide {
+  grid-column: 1 / -1;
+}
+
+.remove-row {
+  grid-column: 1 / -1;
+  background: #8f2d32 !important;
+}
+
+.paper-wrap {
+  overflow: auto;
+  padding: 10px 0 40px;
+}
+
+.invoice-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 19mm 8mm 18mm;
+  background: var(--paper);
+  box-shadow: 0 12px 34px rgba(22, 34, 50, 0.18);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+.title-box {
+  width: max-content;
+  margin: 0 auto 8mm;
+  padding: 1.5mm 4mm;
+  border: var(--line);
+  font-size: 12pt;
+  line-height: 1;
+  text-align: center;
+}
+
+.company-block {
+  display: grid;
+  grid-template-columns: 49mm 1fr;
+  border: var(--line);
+  border-bottom: 0;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 21mm;
+  padding: 1.1mm 1.2mm 0.8mm;
+  border-right: var(--line);
+  overflow: hidden;
+}
+
+.gss-logo {
+  display: block;
+  width: 45.5mm;
+  max-width: 100%;
+  height: auto;
+  image-rendering: auto;
+  object-fit: contain;
+}
+
+.company-details {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 21mm;
+  padding: 1mm 2mm;
+  text-align: center;
+}
+
+.company-details h2 {
+  margin: 0 0 1.5mm;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18pt;
+  line-height: 1;
+}
+
+.company-details p {
+  margin: 0.4mm 0;
+  font-size: 12.5pt;
+  line-height: 1.05;
+}
+
+.meta-grid {
+  border-left: var(--line);
+  border-right: var(--line);
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  min-height: 12mm;
+  border-top: var(--line);
+}
+
+.meta-row > div {
+  display: grid;
+  grid-template-columns: max-content 5mm 1fr;
+  align-items: center;
+  min-width: 0;
+  padding: 1.1mm 1.6mm;
+  font-size: 13pt;
+  line-height: 1.1;
+}
+
+.meta-row > div + div {
+  border-left: var(--line);
+}
+
+.meta-row b {
+  overflow-wrap: normal;
+  white-space: nowrap;
+  font-size: 12.8pt;
+}
+
+#viewCustomerAddress {
+  white-space: normal;
+}
+
+#viewCustomerName {
+  white-space: normal;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: var(--line);
+}
+
+.invoice-table th,
+.invoice-table td {
+  height: 7.1mm;
+  padding: 0.8mm 1mm;
+  border: var(--line);
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12.5pt;
+  line-height: 1;
+}
+
+.invoice-table th {
+  background: var(--muted);
+  font-size: 13.5pt;
+}
+
+.invoice-table tbody td {
+  font-size: 12.3pt;
+}
+
+.invoice-table tfoot td {
+  font-size: 12.2pt;
+}
+
+.invoice-table tfoot td:nth-child(5),
+.invoice-table tfoot td:nth-child(6),
+.grand-row td:nth-child(5),
+.grand-row td:nth-child(6) {
+  font-size: 13.5pt;
+}
+
+.grand-row td {
+  height: 9mm;
+}
+
+.blank-total td {
+  height: 8mm;
+}
+
+.c-sr {
+  width: 18mm;
+}
+
+.c-desc {
+  width: 32mm;
+}
+
+.c-month {
+  width: 31mm;
+}
+
+.c-day {
+  width: 27mm;
+}
+
+.c-rate {
+  width: 30mm;
+}
+
+.c-amount {
+  width: auto;
+}
+
+.invoice-footer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  min-height: 36mm;
+  border-left: var(--line);
+  border-right: var(--line);
+  border-bottom: var(--line);
+}
+
+.amount-words {
+  padding: 10mm 1mm 2mm;
+  font-size: 12pt;
+  line-height: 1.2;
+}
+
+.amount-words span {
+  margin-left: 2mm;
+}
+
+.signature-box {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 1mm 1mm;
+  border-left: var(--line);
+  text-align: center;
+  font-size: 10.5pt;
+}
+/* 
+.stamp {
+  position: absolute;
+  right: 21mm;
+  bottom: 5mm;
+  display: grid;
+  place-items: center;
+  width: 27mm;
+  height: 27mm;
+  border: 1.7px solid rgba(45, 55, 135, 0.55);
+  border-radius: 50%;
+  color: rgba(38, 43, 145, 0.72);
+  transform: rotate(-18deg);
+}
+
+.stamp::before {
+  content: "SECURITY SERVICES";
+  position: absolute;
+  top: 3.4mm;
+  width: 100%;
+  font-size: 6pt;
+  letter-spacing: 0.12em;
+}
+
+.stamp span {
+  font-size: 17pt;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.signature-mark {
+  position: absolute;
+  right: 22mm;
+  bottom: 4mm;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 30pt;
+  line-height: 1;
+  font-weight: 400;
+  transform: rotate(-12deg);
+} */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media (max-width: 1050px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .editor {
+    position: static;
+    max-height: none;
+  }
+
+  .paper-wrap {
+    padding-bottom: 20px;
+  }
+}
+
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .workspace {
+    display: block;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .editor {
+    display: none;
+  }
+
+  .paper-wrap {
+    overflow: visible;
+    padding: 0;
+  }
+
+  .invoice-page {
+    width: 210mm;
+    height: 297mm;
+    min-height: 0;
+    margin: 0;
+    box-shadow: none;
+    break-after: avoid;
+    overflow: hidden;
+  }
+}
