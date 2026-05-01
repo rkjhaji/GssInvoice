@@ -120,64 +120,40 @@
   <script>
     // --- AUTH LOGIC ---
 
-// 1. Check if user is already logged in on Page Load
-window.onload = function() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  if (isLoggedIn === "true") {
-    showContent();
-  } else {
-    showLogin();
-  }
-};
+    // 1. Check if user is already logged in on Page Load
+    window.onload = function() {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      if (isLoggedIn === "true") {
+        showContent();
+      }
+    };
 
-// 2. Login Function
-function checkLogin() {
-  const u = document.getElementById('username').value;
-  const p = document.getElementById('password').value;
-  const error = document.getElementById('errorMsg');
+    // 2. Login Function
+    function checkLogin() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      const error = document.getElementById('errorMsg');
 
-  if (u === "admin" && p === "123") {
-    // Save state to localStorage (Persists after refresh)
-    localStorage.setItem("isLoggedIn", "true");
-    error.style.display = 'none';
-    showContent();
-  } else {
-    error.style.display = 'block';
-    // Shake effect or clear password for better UX
-    document.getElementById('password').value = "";
-  }
-}
+      if (u === "admin" && p === "123") {
+        // Save state to localStorage
+        localStorage.setItem("isLoggedIn", "true");
+        showContent();
+      } else {
+        error.style.display = 'block';
+      }
+    }
 
-// 3. Logout Function
-function handleLogout() {
-  // Clear the saved state
-  localStorage.removeItem("isLoggedIn"); 
-  
-  // Clear the input fields so they aren't pre-filled when returning
-  document.getElementById('username').value = "";
-  document.getElementById('password').value = "";
-  
-  // Switch UI views immediately
-  showLogin();
-}
+    // 3. Logout Function
+    function handleLogout() {
+      localStorage.removeItem("isLoggedIn"); // Clear the saved state
+      location.reload(); // Refresh the page to show login screen
+    }
 
-// UI Toggle Helpers
-function showContent() {
-  document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('mainWorkspace').style.display = 'flex';
-}
-
-function showLogin() {
-  document.getElementById('loginOverlay').style.display = 'flex';
-  document.getElementById('mainWorkspace').style.display = 'none';
-}
-
-// Optional: Allow pressing "Enter" key to login
-document.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter' && document.getElementById('loginOverlay').style.display !== 'none') {
-    checkLogin();
-  }
-});
+    // Helper to show the app
+    function showContent() {
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('mainWorkspace').style.display = 'flex';
+    }
   </script>
 </body>
 </html>
