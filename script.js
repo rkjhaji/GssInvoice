@@ -52,12 +52,27 @@ function roundRupees(value) {
   return Math.round(Number(value) || 0);
 }
 
+//function rowAmount(row) {
+//  const rate = Number(row.billingRate) || 0;
+//  const months = Number(row.manMonth) || 0;
+//  const days = Number(row.manDay) || 0;
+//  return roundRupees(rate * months + (rate / 30) * days);
+//}
+
+function daysInMonth(dateStr) {
+  if (!dateStr) return 30;
+  const [year, month] = dateStr.split("-").map(Number);
+  return new Date(year, month, 0).getDate();
+}
+
 function rowAmount(row) {
   const rate = Number(row.billingRate) || 0;
   const months = Number(row.manMonth) || 0;
   const days = Number(row.manDay) || 0;
-  return roundRupees(rate * months + (rate / 30) * days);
+  const totalDaysInMonth = daysInMonth(invoiceData.billDate);
+  return roundRupees(rate * months + (rate / totalDaysInMonth) * days);
 }
+
 
 function formatMoney(value) {
   return money.format(roundRupees(value));
