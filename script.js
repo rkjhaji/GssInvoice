@@ -4,6 +4,7 @@ const invoiceData = {
   customerGstin: "Customer GSTIN",
   invoiceGstin: "10AAFCG2475D1Z5",
   billNo: "Bill No. 001",
+  //billDate: "Bill Date",
   billDate: "Bill Date",
   taxRate: 0.09,
   rows: [
@@ -59,18 +60,43 @@ function roundRupees(value) {
 //  return roundRupees(rate * months + (rate / 30) * days);
 //}
 
+//function daysInMonth(dateStr) {
+//  if (!dateStr) return 30;
+//  const [year, month] = dateStr.split("-").map(Number);
+//  return new Date(year, month, 0).getDate();
+//}
+
+//function rowAmount(row) {
+//  const rate = Number(row.billingRate) || 0;
+//  const months = Number(row.manMonth) || 0;
+//  const days = Number(row.manDay) || 0;
+//  const totalDaysInMonth = daysInMonth(invoiceData.billDate);
+//  return roundRupees(rate * months + (rate / totalDaysInMonth) * days);
+//}
+
+// Bill Date ke month mein kitne din hain (28, 29, 30 ya 31)
+// Date select nahi hai to 30 maan lega
 function daysInMonth(dateStr) {
   if (!dateStr) return 30;
+
   const [year, month] = dateStr.split("-").map(Number);
+  if (!year || !month) return 30;
+
+  // Agle month ka day 0 = is month ka last day
   return new Date(year, month, 0).getDate();
 }
 
+// Amount = (Man Month x Rate) + (Per day rate x Man Day)
+// Per day rate = Rate / us month ke total din
 function rowAmount(row) {
   const rate = Number(row.billingRate) || 0;
   const months = Number(row.manMonth) || 0;
   const days = Number(row.manDay) || 0;
-  const totalDaysInMonth = daysInMonth(invoiceData.billDate);
-  return roundRupees(rate * months + (rate / totalDaysInMonth) * days);
+
+  const totalDays = daysInMonth(invoiceData.billDate);
+  const perDayRate = rate / totalDays;
+
+  return roundRupees((rate * months) + (perDayRate * days));
 }
 
 
